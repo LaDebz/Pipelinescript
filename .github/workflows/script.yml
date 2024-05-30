@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Make scripts executable
+      run: chmod +x script1.sh script2.sh script3.sh 
+
+    - name: Run Script 1
+      run: ./script1.sh
+
+    - name: Run Script 2
+      run: ./script2.sh
+
+    - name: Run Script 3
+      run: ./script3.sh
+    
