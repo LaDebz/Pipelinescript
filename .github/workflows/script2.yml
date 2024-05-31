@@ -1,0 +1,31 @@
+name: Execute Scripts
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Find and run scripts
+      run: |
+        # Find all .sh files in the repository
+        SCRIPTS=$(find . -type f -name "*.sh")
+        
+        # Make each script executable and run it
+        for script in $SCRIPTS; do
+          echo "Making $script executable"
+          chmod +x $
+          echo "Running $script"
+          ./$script
+        done
+
+
+
