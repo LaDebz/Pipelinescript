@@ -1,0 +1,41 @@
+name: Execute Scripts
+
+on:
+  workflow_dispatch:
+    inputs:
+      scripts:
+        description: 'Comma-separated list of scripts to run'
+        required: true
+        default: 'script1.sh,script2.sh,script3.sh,script4.sh,script5.sh'
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+ steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+       
+    - name: Set up environment
+      run: |
+        # Convert the comma-separated input to an array
+        SCRIPTS=(${{ github.event.inputs.scripts }})
+        echo "Scripts to run: ${SCRIPTS[@]}"
+        # Save the array as an environment variable
+        echo "SCRIPTS=${SCRIPTS[@]}" >> $GITHUB_ENV    
+         
+    - name: Make scripts executable and run them
+      run: |
+        # Iterate over each script and execute it
+        for script in $SCRIPTS; do
+          if [ -f "$script" ]; then
+            echo "Making $script executable"
+            chmod +x $script
+            echo "Running $script"
+            ./$script
+          else
+            echo "Script $script not found!"
+          fi
+        done
+      env:
+        SCRIPTS: ${{ env.SCRIPTS }}   
+ 
