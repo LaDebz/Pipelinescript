@@ -22,7 +22,7 @@ jobs:
         # Make each script executable and run it
         for script in $SCRIPTS; do
           echo "Making $script executable"
-          chmod +x $
+          chmod +x $script
           echo "Running $script"
           ./$script
         done
