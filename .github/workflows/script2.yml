@@ -1,4 +1,4 @@
-name: Execute Scripts
+name: Loop workflow
 
 on:
   push:
