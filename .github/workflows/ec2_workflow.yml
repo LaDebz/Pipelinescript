@@ -23,5 +23,5 @@ jobs:
 
       - name: Execute EC2 management script
         run: |
-          chmod +x .github/scripts/manage_ec2_instances.sh
-          .github/scripts/manage_ec2_instances.sh
+          chmod +x .github/scripts/aws_workflow.sh
+          .github/scripts/aws_workflow.sh
