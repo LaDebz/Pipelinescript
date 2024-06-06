@@ -28,15 +28,16 @@ start_instances() {
   fi
 }
 
-# Get current hour in UTC
+# Get current hour and minute in UTC
 HOUR=$(date -u +"%H")
+MINUTE=$(date -u +"%M")
 
 # Stop instances at 18:00 UTC (6 PM)
-if [ "$HOUR" -eq 18 ]; then
+if [ "$HOUR" -eq 18 ] && [ "$MINUTE" -eq 00 ]; then
   stop_instances
 fi
 
-# Start instances at 09:00 UTC (9 AM)
-if [ "$HOUR" -eq 9 ]; then
+# Start instances if the time is 23:50 UTC or later
+if [ "$HOUR" -gt 23 ] || { [ "$HOUR" -eq 23 ] && [ "$MINUTE" -ge 50 ]; }; then
   start_instances
 fi
